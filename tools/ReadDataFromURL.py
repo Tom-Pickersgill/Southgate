@@ -10,16 +10,25 @@ class DataTools():
         link = u"https://fantasy.premierleague.com/drf/elements"
         
         with urllib.request.urlopen(link) as url:
-            return  pd.DataFrame(json.loads(url.read().decode()))
+            return pd.DataFrame(json.loads(url.read().decode()))
         
-    def HistoricalData(game_week=[], year=[]):
+    def HistoricalData(year_week_dict):
         """
         Returns Dataframe object for historical FPL data. 
-        Vargin for game_week and year must be python list.
-        Pass no arguements to return full historical df.
+        Input arg must be dict where key='yyyy', value='X-N'
         """
-        if game_week == year == []:
-            return pd.read_csv()
+
+        for year, weeks in year_week_dict.items():
+            for i, week in enumerate(weeks.split('-')):
+                log_name = ('FPL{}-GW{}.csv').format(year[2:],week)
+
+                if not 'df' in locals():
+                    df = pd.read_csv('./gamelogs/'+log_name)
+                else:
+                    df = pd.concat([df, pd.read_csv('./gamelogs/'+log_name)],
+                                    join='inner')
+            
+        return df
        
     def GenerateFullCSV():
         """ Generates an updated CSV from all saved CSVs """
