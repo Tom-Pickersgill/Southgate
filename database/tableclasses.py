@@ -1,7 +1,7 @@
 def FPL_data_table():
     return """
-    FirstName TEXT,
-    Surname TEXT,
+    FirstName TEXT NOT NULL,
+    Surname TEXT NOT NULL,
     PositionsList TEXT,
     Team TEXT,
     Cost INTEGER,
@@ -50,8 +50,9 @@ def FPL_data_table():
     NextFixture4 TEXT,
     NextFixture5 TEXT,
     ICTIndex INTEGER,
-    year INTEGER,
-    week INTEGER,
-    Timeline TEXT
+    Year INTEGER,
+    Week INTEGER,
+    Timeline TEXT NOT NULL,
+    PRIMARY KEY (FirstName, Surname, Timeline)
     """
     

@@ -38,7 +38,7 @@ class DataTools():
                                                 dtype=df_dtypes)
                                     ], join='inner')
         
-        df.set_index(['year','week'], inplace=True)
+        df.set_index(['Year','Week'], inplace=True)
         
         return df
 
@@ -78,8 +78,8 @@ class DataTools():
                                  int(weeks.split('-')[1])+1):
                     log_name = ('FPL{}-GW{}.csv').format(year[2:],week)
                     df = pd.read_csv('./gamelogs/'+log_name)
-                    df['year'] = year
-                    df['week'] = week
+                    df['Year'] = year
+                    df['Week'] = week
                     df['Timeline'] = ('Y'+df.year.astype(str).str[2:] +
                                       'W'+df.week.astype(str))
                     df.to_csv('./gamelogs/'+log_name, index=False)

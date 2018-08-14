@@ -12,10 +12,14 @@ DT = DataTools()
 #df = DT.HistoricalData({'2016':'5-37', '2017':'0-37', '2018':'0-0'})
 
 #DA = DataAnalysisToolkit(df)
-df = pd.read_csv('gamelogs/FPL16-GW5.csv')
+
+
+
+df = pd.read_csv('gamelogs/complete_data.csv')
 
 DB = DatabaseTools(r'database/southgate_db.db','FPL_data')
-DB.upload(df)
+#DB.upload(df)
+#DB.upload(df)
 
 
 
