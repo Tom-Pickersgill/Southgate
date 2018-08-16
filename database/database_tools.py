@@ -46,9 +46,24 @@ class DatabaseTools():
         self.conn.close()
 
     def query(self, query_dict):
-        for key, values in query_dict:
-            self.cur.execute("Select * from database/southgate_db.db where ? = '?'", (key, value))
+        for key, value in query_dict.items():
+            self.cur.execute("Select * from {} where {} = '{}'".
+                             format(self.table_name, key, value))
         return self.cur.fetchall()
 
+    def return_col_names(self):
+        self.cur.execute('PRAGMA TABLE_INFO({})'.format(self.table_name))
+        return self.fetchall()
+
+    def count_total_rows(self, print_out=False):
+        """ Returns the total number of rows in the database """
+        self.cur.execute('SELECT COUNT(*) FROM {}'.format(self.table_name))
+        count = self.fetchall()
+        
+        if print_out:
+            print('\nTotal rows: {}'.format(count[0][0]))
+            
+        return count[0][0]
+    
 #create_table('FPL_data', FPL_data_table())
 #drop_table('FPL_data')
