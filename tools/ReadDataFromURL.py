@@ -42,7 +42,6 @@ class DataTools():
         
         return df
 
-
     def GenerateFullCSV(self):
         """ Generates an updated CSV from all saved CSVs """
         pdb.set_trace()

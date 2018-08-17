@@ -19,7 +19,6 @@ df = pd.read_csv('gamelogs/complete_data.csv')
 
 DB = DatabaseTools(r'database/southgate_db.db','FPL_data')
 #DB.upload(df)
-#DB.upload(df)
 
 
 

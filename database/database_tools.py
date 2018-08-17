@@ -1,6 +1,6 @@
-import sqlite3, time, pdb
 from database.tableclasses import FPL_data_table
-#from sqlalchemy import create_engine
+import sqlite3, time, pdb
+import pandas as pd
 
 class DatabaseTools():
     """ A set of databse connection tools """
@@ -11,7 +11,6 @@ class DatabaseTools():
         self.table_name = table_name
         self.conn = sqlite3.connect(db_name)
         self.cur = self.conn.cursor()
-        #self.engine = create_engine('sqlite://', echo=False)
         
         if table_name is 'FPL_data':
             self.table_class = FPL_data_table()
@@ -45,11 +44,24 @@ class DatabaseTools():
         self.cur.close()
         self.conn.close()
 
-    def query(self, query_dict):
-        for key, value in query_dict.items():
-            self.cur.execute("Select * from {} where {} = '{}'".
-                             format(self.table_name, key, value))
-        return self.cur.fetchall()
+    def query(self, query_dict, join_type='OR', return_df=True, sort_on="",
+              sort_type=""):
+        """ sort type = asc or desc """
+
+        query = "Select * from {} where ".format(self.table_name) +\
+                " {} ".format(join_type).join(
+                ["{}='{}'".format(key, value)
+                for key in query_dict
+                for value in query_dict[key]])
+    
+        if sort_on: query += "order by {}".format(sort_on)
+        if sort_on and sort_type: query += " " + sort_type
+        
+        if return_df:
+            return pd.read_sql_query(query, self.conn)
+        else:
+            self.cur.execute(query)
+            return self.cur.fetchall()
 
     def return_col_names(self):
         self.cur.execute('PRAGMA TABLE_INFO({})'.format(self.table_name))
@@ -64,6 +76,3 @@ class DatabaseTools():
             print('\nTotal rows: {}'.format(count[0][0]))
             
         return count[0][0]
-    
-#create_table('FPL_data', FPL_data_table())
-#drop_table('FPL_data')
