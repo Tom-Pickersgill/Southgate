@@ -8,6 +8,19 @@ from tools.MemoryOptimiser import type_reduct_dict
 from tools.DataAnalysis import DataAnalysisToolkit
 from database.database_tools import DatabaseTools
 
+
+def filter_df(df, query_dict):
+    for key, values in query_dict.items():
+        if not 'mask' in locals(): mask = df[key].isin(values)
+        else: mask = mask | df[key].isin(values)
+
+    return df[mask]
+    
+
+#query_dict = {'FirstName':['Almen','Charlie'],'Surname':['Salah','Afellay']}
+
+
+
 DT = DataTools()
 #df = DT.HistoricalData({'2016':'5-37', '2017':'0-37', '2018':'0-0'})
 
@@ -27,7 +40,10 @@ DB = DatabaseTools(r'database/southgate_db.db','FPL_data')
 #df_full = DT.LoadFullData()
 
 
-
+start = time.time()
+y=x[x['FirstName'].isin(['Almen','Charlie'])]
+#DB.query({'FirstName':['Almen','Charlie']})
+print("{0:.5f}".format(time.time()-start))
 
 
 

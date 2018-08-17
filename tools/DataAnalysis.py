@@ -1,10 +1,16 @@
 import seaborn as sns
+sns.set()
+
+
 
 class DataAnalysisToolkit():
     
     def __init__(self, df):
         self.df = df
-        sns.set()
+        
+    def filter_query(self):
+        return 
+        
         
     def TopPointsPerPrice(self, df, number_players=10):
         df['TopPointsPerPrice']= df.PointsLastRound / df.Cost / 1e6

@@ -44,11 +44,14 @@ class DatabaseTools():
         self.cur.close()
         self.conn.close()
 
-    def query(self, query_dict, join_type='OR', return_df=True, sort_on="",
-              sort_type=""):
-        """ sort type = asc or desc """
+    def query(self, query_dict={}, join_type='OR', return_df=True, sort_on="",
+              sort_type="", limit=""):
+        """ sort type = asc or desc
+            supply empty query dict to return all data in db
+        """
 
-        query = "Select * from {} where ".format(self.table_name) +\
+        where = 'where' if query_dict else ''
+        query = "Select * from {} {} ".format(self.table_name, where) +\
                 " {} ".format(join_type).join(
                 ["{}='{}'".format(key, value)
                 for key in query_dict
@@ -56,6 +59,7 @@ class DatabaseTools():
     
         if sort_on: query += "order by {}".format(sort_on)
         if sort_on and sort_type: query += " " + sort_type
+        if limit: query += "limit " + limit
         
         if return_df:
             return pd.read_sql_query(query, self.conn)
@@ -67,12 +71,9 @@ class DatabaseTools():
         self.cur.execute('PRAGMA TABLE_INFO({})'.format(self.table_name))
         return self.fetchall()
 
-    def count_total_rows(self, print_out=False):
+    def count_total_rows(self):
         """ Returns the total number of rows in the database """
         self.cur.execute('SELECT COUNT(*) FROM {}'.format(self.table_name))
         count = self.fetchall()
-        
-        if print_out:
-            print('\nTotal rows: {}'.format(count[0][0]))
             
         return count[0][0]
