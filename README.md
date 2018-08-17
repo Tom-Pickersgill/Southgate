@@ -5,8 +5,8 @@ This repo is currently under construction.
 
 The following are currently under construction.
 
-1. ~~Create and fill db with Fantasy Football data.~~
-2. Dynamically query db using user defined input.
+1. ~~Create and fill db with Fantasy Football data.
+2. ~~Dynamically query db using user defined input.
 3. Create Backtest engine to determine strategy performance through time.
 4. Create ML/statistical models to predict projected player scores.
 5. Write optimisation engine to generate a squad for the upcoming gameweek based on user inputted constraints.
