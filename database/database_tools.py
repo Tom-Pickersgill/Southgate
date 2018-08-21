@@ -33,7 +33,7 @@ class DatabaseTools():
 
     def upload(self, df):
         start = time.time()
-        df.to_sql(self.table_name, self.conn, if_exists='replace')
+        df.to_sql(self.table_name, self.conn, if_exists='append', index=False)
         print('Time for upload: {}s'.format(time.time()-start))
         self.conn.commit()
         

@@ -15,39 +15,25 @@ def filter_df(df, query_dict):
         else: mask = mask | df[key].isin(values)
 
     return df[mask]
-    
 
-#query_dict = {'FirstName':['Almen','Charlie'],'Surname':['Salah','Afellay']}
+""" Backtest Parameters """
+params = {'bt_start_week':'',
+          'bt_start_year':'',
+          'squad':'',
+          'subs':''}
 
 
-
-DT = DataTools()
-#df = DT.HistoricalData({'2016':'5-37', '2017':'0-37', '2018':'0-0'})
-
-#DA = DataAnalysisToolkit(df)
-
+query_dict = {'FirstName':['Almen','Charlie'],'Surname':['Salah','Afellay']}
 
 
 df = pd.read_csv('gamelogs/complete_data.csv')
-
+DA = DataAnalysisToolkit(df)
 DB = DatabaseTools(r'database/southgate_db.db','FPL_data')
-#DB.upload(df)
+DT = DataTools()
 
 
 
-
-#df = DT.HistoricalData({'2016':'5-37', '2017':'0-37', '2018':'0-0'})
-#df_full = DT.LoadFullData()
-
-
-start = time.time()
-y=x[x['FirstName'].isin(['Almen','Charlie'])]
-#DB.query({'FirstName':['Almen','Charlie']})
-print("{0:.5f}".format(time.time()-start))
-
-
-
-#DT.GenerateFullCSV()
+#DT.GenerateFullCSV()\
 #df = DT.HistoricalData({'2016': '5-10', '2017': '0-5'})
 #DT.RemoveColumns({'2016':'5-37', '2017':'0-37', '2018':'0-0'}, 'GW')
 #
