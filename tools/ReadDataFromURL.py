@@ -53,9 +53,9 @@ class DataTools():
     def GenerateFullCSV(self):
         """ Generates an updated CSV from all saved CSVs """
 
-        df = self.HistoricalData({#'2016':'5-37',
-                                #'2017':'0-37',
-                                '2018':'1-1'})
+        df = self.HistoricalData({'2016':'5-37',
+                                  '2017':'0-37',
+                                  '2018':'0-1'})
 
         df.to_csv('./gamelogs/complete_data.csv', index=False)
 
@@ -104,3 +104,10 @@ class DataTools():
                     df['Timeline'] = ('Y'+df.year.astype(str).str[2:] +
                                       'W'+df.week.astype(str))
                     df.to_csv('./gamelogs/'+log_name, index=False)
+                    
+    def filter_df(df, query_dict):
+        for key, values in query_dict.items():
+            if not 'mask' in locals(): mask = df[key].isin(values)
+            else: mask = mask | df[key].isin(values)
+    
+        return df[mask]

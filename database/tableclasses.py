@@ -53,6 +53,6 @@ def FPL_data_table():
     Year INTEGER,
     Week INTEGER,
     Timeline TEXT NOT NULL,
-    PRIMARY KEY (FirstName, Surname, Timeline)
+    PRIMARY KEY (FirstName, Surname, Team, Timeline)
     """
     
