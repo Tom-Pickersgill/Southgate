@@ -13,38 +13,41 @@ DB = DatabaseTools(r'database/southgate_db.db','FPL_data')
 
 """ Backtest Parameters """
 
-params = {'bt_start_week':'Y17W0',
-          'bt_start_year':'Y17W37'}
+params = {'bt_start':'Y17W0',
+          'bt_end':'Y17W37'}
 
 
-first_XI =    [['Joe','Hart','WHU'],
-              ['Daley','Blind','MUN'],
-              ['Ryan','Betrand','SOU'],
-              ['Geoff','Cameron','STK'],
-              ['Jonathan','Leko','WBA'],
-              ['Kevin','Mirallas','EVE'],
-              ['Henrikh','Mkhitaryan','MUN'],
-              ['Ahmed','Musa','LEI'],
-              ['Charly','Musonda','CHE'],
-              ['Harry','Kane','TOT'],
-              ['Danny','Ings','LIV'],
-]
+first_XI =[['Joe','Hart','WHU'],
+          ['Daley','Blind','MUN'],
+          ['Ryan','Bertrand','SOU'],
+          ['Geoff','Cameron','STK'],
+          ['Jonathan','Leko','WBA'],
+          ['Kevin','Mirallas','EVE'],
+          ['Henrikh','Mkhitaryan','MUN'],
+          ['Ahmed','Musa','LEI'],
+          ['Charly','Musonda','CHE'],
+          ['Harry','Kane','TOT'],
+          ['Danny','Ings','LIV']]
 
-subs = [['Stuart','Taylor','SOU'],
-        ['Craig','Cathcart','WAT'],
-        ['Leroy','Fer','SWA'],
-        ['Marko','Grujic','LIV']]
+subs =   [['Stuart','Taylor','SOU'],
+          ['Craig','Cathcart','WAT'],
+          ['Leroy','Fer','SWA'],
+          ['Marko','Grujic','LIV']]
 
-player_port_df = PlayerPort(first_XI, subs, 'Y17W0', DB)
+squad = [first_XI, subs]
+
+df_universe = pd.read_csv('gamelogs/complete_data.csv')
+
+#player_port_df = PlayerPort(squad, 'Y17W0', df_universe, DB)
 
 #query_dict = {'FirstName':['Almen','Charlie'],'Surname':['Salah','Afellay']}
 
 
-df = pd.read_csv('gamelogs/complete_data.csv')
+#df = pd.read_csv('gamelogs/complete_data.csv')
 
-DA = DataAnalysisToolkit(df)
+#DA = DataAnalysisToolkit(df)
 
-DT = DataTools()
+#DT = DataTools()
 
 
 

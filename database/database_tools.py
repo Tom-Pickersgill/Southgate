@@ -5,6 +5,7 @@ import pandas as pd
 class DatabaseTools():
     """ A set of databse connection tools """
     
+    __slots__ = ('db_name','table_name','conn','cur','table_class',)
     def __init__(self, db_name, table_name):
         
         self.db_name = db_name
